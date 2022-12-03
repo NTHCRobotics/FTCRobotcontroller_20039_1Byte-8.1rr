@@ -1,5 +1,5 @@
 
-package org.firstinspires.ftc.teamcode.drive.opmode;
+package org.firstinspires.ftc.teamcode.Teleop;
 
 import com.qualcomm.hardware.rev.Rev2mDistanceSensor;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
@@ -7,18 +7,6 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
-import com.qualcomm.hardware.motors.RevRoboticsCoreHexMotor;
-import com.qualcomm.hardware.rev.Rev2mDistanceSensor;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorEx;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
-import com.qualcomm.robotcore.hardware.DigitalChannel;
-import com.qualcomm.robotcore.hardware.Servo;
-import com.qualcomm.robotcore.util.ElapsedTime;
-import com.qualcomm.robotcore.hardware.Servo;
-import java.util.Arrays;
-
-import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
 /**
  * This file contains an example of an iterative (Non-Linear) "OpMode".
@@ -40,9 +28,9 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
     name = the name that will display on the Driver Hub
     group = allows you to group OpModes
  */
-@TeleOp(name="DriverControl_Pressme;)", group="Wesley")
+@TeleOp(name="DriverControl_Pressme;)", group="sai")
 //@Disabled  This way it will run on the robot
-public class drivestick20039 extends OpMode {
+public class drivestick200392 extends OpMode {
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();  //timer
 
@@ -70,9 +58,9 @@ public class drivestick20039 extends OpMode {
 
 
     //Servos
-    //private Servo gripper;
+    //private S gripper;
 
-    //Variables
+
 
     private double speedMod;
     private boolean rumbleLevel = true;
