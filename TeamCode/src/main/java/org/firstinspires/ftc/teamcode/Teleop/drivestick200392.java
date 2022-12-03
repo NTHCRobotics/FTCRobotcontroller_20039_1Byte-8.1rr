@@ -4,8 +4,11 @@ package org.firstinspires.ftc.teamcode.Teleop;
 import com.qualcomm.hardware.rev.Rev2mDistanceSensor;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.Gamepad;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 /**
@@ -58,12 +61,15 @@ public class drivestick200392 extends OpMode {
 
 
     //Servos
-    //private S gripper;
+    private CRServo camera;
+    private Servo dildo;
+    private Servo turn;
 
 
 
     private double speedMod;
     private boolean rumbleLevel = true;
+    private boolean isRumbleLevel = true;
     private double rotation = 0;
     //double susanPower;
 

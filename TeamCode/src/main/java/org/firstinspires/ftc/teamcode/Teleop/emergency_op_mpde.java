@@ -1,0 +1,30 @@
+package org.firstinspires.ftc.teamcode.Teleop;
+
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+@TeleOp(name="Emergancy;)", group="sai")
+//THIS IS TO BE USED IF WE DONT HAVE ANY CODE READY FOR COMPETION FOR INSPECTION
+public class emergency_op_mpde extends OpMode {
+
+    @Override
+    public void init() {
+
+    }//THIS IS TO BE USED IF WE DONT HAVE ANY CODE READY FOR COMPETION FOR INSPECTION
+
+
+    @Override
+    public void loop() {
+
+    }//THIS IS TO BE USED IF WE DONT HAVE ANY CODE READY FOR COMPETION FOR INSPECTION
+
+
+    void Stop() {
+
+    }}//THIS IS TO BE USED IF WE DONT HAVE ANY CODE READY FOR COMPETION FOR INSPECTION
+//THIS IS TO BE USED IF WE DONT HAVE ANY CODE READY FOR COMPETION FOR INSPECTION
+
+//THIS IS TO BE USED IF WE DONT HAVE ANY CODE READY FOR COMPETION FOR INSPECTION
+
+//THIS IS TO BE USED IF WE DONT HAVE ANY CODE READY FOR COMPETION FOR INSPECTION
+
+//THIS IS TO BE USED IF WE DONT HAVE ANY CODE READY FOR COMPETION FOR INSPECTION
