@@ -78,7 +78,7 @@ public class drivestick200392 extends OpMode {
      */
     @Override
     public void init() {
-        telemetry.addData("Status", "Initialized");
+        telemetry.addData("Status", "Initialization Started");
 
 
         // Initialize the hardware variables. Note that the strings used here as parameters
@@ -91,7 +91,8 @@ public class drivestick200392 extends OpMode {
         wheelBL = hardwareMap.get(DcMotorEx.class, "wheelBL");
         wheelBR = hardwareMap.get(DcMotorEx.class, "wheelBR");
         Viper = hardwareMap.get(DcMotorEx.class, "viper");
-
+        dildo = hardwareMap.get(Servo.class, "stinger");
+        turn = hardwareMap.get(Servo.class, "turn");
 
         //Motor Encoders
         //Wheels
@@ -108,7 +109,7 @@ public class drivestick200392 extends OpMode {
 
 
         // Tell the driver that initialization is complete.
-        telemetry.addData("Status", "Initialized balls");
+        telemetry.addData("Status", "Initialization Complete");
 
 
     }
@@ -141,6 +142,7 @@ public class drivestick200392 extends OpMode {
         Viperlift();
         Grabber();
         flipper();
+        turn();
 
 
     }
@@ -193,7 +195,20 @@ public class drivestick200392 extends OpMode {
 
     private void Grabber() {
 
+        if (gamepad2.left_bumper) {
+            dildo.setPosition(0.7); //tune this value until
+        } else if (gamepad2.right_bumper) {
+            dildo.setPosition(0);//tune this value until
+        }
+    }
 
+    private void turn() {
+
+        if (gamepad2.b) {
+            turn.setPosition(0.7); //tune this value until
+        } else if (gamepad2.a) {
+            turn.setPosition(0);//tune this value until
+        }
     }
 
     private void flipper() {
