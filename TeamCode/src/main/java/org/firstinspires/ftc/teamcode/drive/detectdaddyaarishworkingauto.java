@@ -19,12 +19,16 @@
  * SOFTWARE.
  */
 
-package org.firstinspires.ftc.teamcode.Saiansh_testing;
+package org.firstinspires.ftc.teamcode.drive;
 
+import com.acmerobotics.dashboard.FtcDashboard;
+import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
+import org.firstinspires.ftc.teamcode.drive.AprilTagDetectionPipeline;
+import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 import org.openftc.apriltag.AprilTagDetection;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
@@ -62,11 +66,15 @@ public class detectdaddyaarishworkingauto extends LinearOpMode
 
     @Override
     public void runOpMode()
+
     {
+        SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
+
+
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         camera = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);
         aprilTagDetectionPipeline = new AprilTagDetectionPipeline(tagsize, fx, fy, cx, cy);
-
+        FtcDashboard.getInstance().startCameraStream(camera, 0);
         camera.setPipeline(aprilTagDetectionPipeline);
         camera.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener()
         {
@@ -84,6 +92,19 @@ public class detectdaddyaarishworkingauto extends LinearOpMode
         });
 
         telemetry.setMsTransmissionInterval(50);
+//add trejectorys
+        Pose2d startpose = new Pose2d();
+        TrajectorySequence Left = drive.trajectorySequenceBuilder(startpose)
+                //add trejectorys
+                .build();
+
+        TrajectorySequence Middle = drive.trajectorySequenceBuilder(startpose)
+//add trejectorys
+                .build();
+
+        TrajectorySequence Right = drive.trajectorySequenceBuilder(startpose)
+//add trejectorys
+                .build();
 
         /*
          * The INIT-loop:
@@ -168,11 +189,11 @@ public class detectdaddyaarishworkingauto extends LinearOpMode
 
         /* Actually do something useful */
         if(tagOfInterest == null || tagOfInterest.id == LEFT){
-            //trajectory
+            drive.followTrajectorySequence(Left);
         }else if(tagOfInterest.id == MIDDLE){
-            //trajectory
+            drive.followTrajectorySequence(Middle);
         }else{
-            //trajectory
+            drive.followTrajectorySequence(Right);
         }
 
 
