@@ -101,7 +101,7 @@ public class drivestick200392 extends OpMode {
         wheelFR.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
         wheelBL.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
         wheelBR.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
-
+Viper.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         wheelFL.setDirection(DcMotorSimple.Direction.FORWARD);
         wheelFR.setDirection(DcMotorSimple.Direction.FORWARD);
@@ -190,7 +190,15 @@ public class drivestick200392 extends OpMode {
 
     public void Viperlift() {
         //isaiah put code here
+if (gamepad2.dpad_up) {
+    Viper.setVelocity(-3000);
+}
+else if (gamepad2.dpad_down) {
+    Viper.setVelocity(3000);
+}
+else Viper.setVelocity(0); {
 
+        }
     }
 
 
