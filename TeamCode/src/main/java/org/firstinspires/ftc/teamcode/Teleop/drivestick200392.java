@@ -5,6 +5,7 @@ import com.qualcomm.hardware.rev.Rev2mDistanceSensor;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.CRServo;
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Gamepad;
@@ -96,16 +97,16 @@ public class drivestick200392 extends OpMode {
 
         //Motor Encoders
         //Wheels
-        wheelFL.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
-        wheelFR.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
-        wheelBL.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
-        wheelBR.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+        wheelFL.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
+        wheelFR.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
+        wheelBL.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
+        wheelBR.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
 
 
         wheelFL.setDirection(DcMotorSimple.Direction.FORWARD);
-        wheelFR.setDirection(DcMotorSimple.Direction.REVERSE);
+        wheelFR.setDirection(DcMotorSimple.Direction.FORWARD);
         wheelBL.setDirection(DcMotorSimple.Direction.FORWARD);
-        wheelBR.setDirection(DcMotorSimple.Direction.REVERSE);
+        wheelBR.setDirection(DcMotorSimple.Direction.FORWARD);
 
 
         // Tell the driver that initialization is complete.
@@ -172,9 +173,9 @@ public class drivestick200392 extends OpMode {
         double r = Math.hypot(gamepad1.left_stick_x, gamepad1.left_stick_y);
 
         //make calculations based upon the input
-        double robotAngle = Math.atan2(gamepad1.left_stick_x, gamepad1.left_stick_y) - Math.PI / 4;
-        double rightX = -gamepad1.right_stick_x;
-        rotation += 1 * rightX;
+        double robotAngle = Math.atan2(gamepad1.left_stick_y, -gamepad1.left_stick_x) - Math.PI / 4;
+        double rightX = gamepad1.right_stick_x;
+        rotation += -1 * rightX;
         final double v1 = r * Math.cos(robotAngle) - rightX;
         final double v2 = r * Math.sin(robotAngle) + rightX;
         final double v3 = r * Math.sin(robotAngle) - rightX;
