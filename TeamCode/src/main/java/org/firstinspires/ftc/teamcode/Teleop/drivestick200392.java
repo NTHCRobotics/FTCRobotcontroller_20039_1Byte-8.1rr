@@ -164,7 +164,7 @@ Viper.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             speedMod = 1;
 //            gamepad1.stopRumble();
 //            gamepad2.stopRumble();
-
+            //youtube
         }
     }
 
@@ -174,7 +174,7 @@ Viper.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         //make calculations based upon the input
         double robotAngle = Math.atan2(gamepad1.left_stick_y, -gamepad1.left_stick_x) - Math.PI / 4;
-        double rightX = gamepad1.right_stick_x;
+        double rightX = -gamepad1.right_stick_x;
         rotation += 1 * rightX;
         final double v1 = r * Math.cos(robotAngle) - rightX;
         final double v2 = r * Math.sin(robotAngle) + rightX;
@@ -191,12 +191,12 @@ Viper.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     public void Viperlift() {
         //isaiah put code here
 if (gamepad2.dpad_up) {
-    Viper.setVelocity(-3000);
+    Viper.setPower(-1);
 }
 else if (gamepad2.dpad_down) {
-    Viper.setVelocity(3000);
+    Viper.setPower(1);
 }
-else Viper.setVelocity(0); {
+else Viper.setPower(0); {
 
         }
     }
