@@ -104,8 +104,8 @@ public class drivestick200392 extends OpMode {
 Viper.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         wheelFL.setDirection(DcMotorSimple.Direction.FORWARD);
-        wheelFR.setDirection(DcMotorSimple.Direction.FORWARD);
-        wheelBL.setDirection(DcMotorSimple.Direction.FORWARD);
+        wheelFR.setDirection(DcMotorSimple.Direction.REVERSE);
+        wheelBL.setDirection(DcMotorSimple.Direction.REVERSE);
         wheelBR.setDirection(DcMotorSimple.Direction.FORWARD);
 
 
@@ -175,7 +175,7 @@ Viper.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         //make calculations based upon the input
         double robotAngle = Math.atan2(gamepad1.left_stick_y, -gamepad1.left_stick_x) - Math.PI / 4;
         double rightX = gamepad1.right_stick_x;
-        rotation += -1 * rightX;
+        rotation += 1 * rightX;
         final double v1 = r * Math.cos(robotAngle) - rightX;
         final double v2 = r * Math.sin(robotAngle) + rightX;
         final double v3 = r * Math.sin(robotAngle) - rightX;
