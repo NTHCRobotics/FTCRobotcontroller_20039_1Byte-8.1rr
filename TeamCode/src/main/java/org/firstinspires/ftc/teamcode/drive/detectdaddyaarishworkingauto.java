@@ -23,6 +23,7 @@ package org.firstinspires.ftc.teamcode.drive;
 
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
+import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
@@ -65,9 +66,7 @@ public class detectdaddyaarishworkingauto extends LinearOpMode
     AprilTagDetection tagOfInterest = null;
 
     @Override
-    public void runOpMode()
-
-    {
+    public void runOpMode() {
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
 
 
@@ -76,35 +75,39 @@ public class detectdaddyaarishworkingauto extends LinearOpMode
         aprilTagDetectionPipeline = new AprilTagDetectionPipeline(tagsize, fx, fy, cx, cy);
         FtcDashboard.getInstance().startCameraStream(camera, 0);
         camera.setPipeline(aprilTagDetectionPipeline);
-        camera.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener()
-        {
+        camera.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener() {
             @Override
-            public void onOpened()
-            {
-                camera.startStreaming(800,448, OpenCvCameraRotation.UPRIGHT);
+            public void onOpened() {
+                camera.startStreaming(800, 448, OpenCvCameraRotation.UPRIGHT);
             }
 
             @Override
-            public void onError(int errorCode)
-            {
+            public void onError(int errorCode) {
 
             }
         });
 
         telemetry.setMsTransmissionInterval(50);
 //add trejectorys
-        Pose2d startpose = new Pose2d();
-        TrajectorySequence Left = drive.trajectorySequenceBuilder(startpose)
-                //add trejectorys
-                .build();
 
-        TrajectorySequence Middle = drive.trajectorySequenceBuilder(startpose)
-//add trejectorys
-                .build();
+        TrajectorySequence Left = drive.trajectoryBuilder(new Pose2d(-35.24, -71.13, Math.toRadians(90.00)))
+                .splineTo(new Vector2d(-50.67, -61.08), Math.toRadians(163.94))
+                .splineTo(new Vector2d(-62.03, -52.75), Math.toRadians(90.00))
+                .splineTo(new Vector2d(-61.16, -36.80), Math.toRadians(94.66))
+                .build()
 
-        TrajectorySequence Right = drive.trajectorySequenceBuilder(startpose)
+        TrajectorySequence Middle = drive.trajectoryBuilder(new Pose2d(-34.46, -70.96, Math.toRadians(90.00)))
+                .splineTo(new Vector2d(-34.89, -53.97), Math.toRadians(90.00))
+                .splineTo(new Vector2d(-36.02, -36.63), Math.toRadians(92.60))
+                .build()
 //add trejectorys
-                .build();
+
+
+        TrajectorySequence Right = drive.trajectoryBuilder(new Pose2d(-34.89, -71.05, Math.toRadians(90.00)))
+                .splineTo(new Vector2d(-14.43, -60.90), Math.toRadians(26.37))
+                .splineTo(new Vector2d(-13.74, -46.34), Math.toRadians(90.00))
+                .splineTo(new Vector2d(-13.74, -34.03), Math.toRadians(90.00))
+                .build()
 
         /*
          * The INIT-loop:
