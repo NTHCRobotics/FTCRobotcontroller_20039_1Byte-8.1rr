@@ -101,7 +101,7 @@ public class drivestick200392 extends OpMode {
         wheelFR.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
         wheelBL.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
         wheelBR.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
-Viper.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        Viper.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         wheelFL.setDirection(DcMotorSimple.Direction.FORWARD);
         wheelFR.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -173,7 +173,7 @@ Viper.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         double r = Math.hypot(gamepad1.left_stick_x, gamepad1.left_stick_y);
 
         //make calculations based upon the input
-        double robotAngle = Math.atan2(gamepad1.left_stick_y, -gamepad1.left_stick_x) - Math.PI / 4;
+        double robotAngle = Math.atan2(-gamepad1.left_stick_y, gamepad1.left_stick_x) - Math.PI / 4;
         double rightX = -gamepad1.right_stick_x;
         rotation += 1 * rightX;
         final double v1 = r * Math.cos(robotAngle) - rightX;
@@ -190,13 +190,13 @@ Viper.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
     public void Viperlift() {
         //isaiah put code here
-if (gamepad2.dpad_up) {
-    Viper.setPower(-1);
-}
-else if (gamepad2.dpad_down) {
-    Viper.setPower(1);
-}
-else Viper.setPower(0); {
+        if (gamepad2.dpad_up) {
+            Viper.setPower(-1);
+        }
+        else if (gamepad2.dpad_down) {
+            Viper.setPower(1);
+        }
+        else Viper.setPower(0); {
 
         }
     }
@@ -235,7 +235,7 @@ else Viper.setPower(0); {
          */
 
     }
-        //@Override
-        void Stop() {
+    //@Override
 
-        }}
+
+    }
