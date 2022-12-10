@@ -36,7 +36,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 //@Disabled  This way it will run on the robot
 public class drivestick200392 extends OpMode {
     // Declare OpMode members.
-    private ElapsedTime runtime = new ElapsedTime();  //timer
+    private final ElapsedTime runtime = new ElapsedTime();  //timer
 
     /*
     Declare motors to type DcMotorEx
@@ -56,7 +56,7 @@ public class drivestick200392 extends OpMode {
     private DcMotorEx wheelBL;
     private DcMotorEx wheelBR;
     private DcMotorEx Viper;
-    //private DcMotorEx Insertnamehere;//
+    private DcMotorEx flip;
     //private DcMotorEx Insertnamehere
     //private DcMotorEx Insertnamehere
 
@@ -69,8 +69,8 @@ public class drivestick200392 extends OpMode {
 
 
     private double speedMod;
-    private boolean rumbleLevel = true;
-    private boolean isRumbleLevel = true;
+    private final boolean rumbleLevel = true;
+    private final boolean isRumbleLevel = true;
     private double rotation = 0;
     //double susanPower;
 
@@ -94,6 +94,7 @@ public class drivestick200392 extends OpMode {
         Viper = hardwareMap.get(DcMotorEx.class, "viper");
         dildo = hardwareMap.get(Servo.class, "stinger");
         turn = hardwareMap.get(Servo.class, "turn");
+        flip = hardwareMap.get(DcMotorEx.class, "flip");
 
         //Motor Encoders
         //Wheels
@@ -222,7 +223,17 @@ public class drivestick200392 extends OpMode {
 
     private void flipper() {
 
+        if (gamepad2.right_bumper) {
+           flip.setPower(-0.4);
+        }
+        else if (gamepad2.left_bumper) {
+            flip.setPower(0.4);
+        }
+        else flip.setPower(0); {
 
+        }
+
+}
 
 
 
@@ -238,4 +249,3 @@ public class drivestick200392 extends OpMode {
     //@Override
 
 
-    }

@@ -75,7 +75,7 @@ class Symphony
     public class SymphonyAprilTagPipeline extends OpenCvPipeline {
 
         private long nativeApriltagPtr;
-        private Mat grey = new Mat();
+        private final Mat grey = new Mat();
         
 
         private ArrayList<AprilTagDetection> detectionsUpdate = new ArrayList<>();

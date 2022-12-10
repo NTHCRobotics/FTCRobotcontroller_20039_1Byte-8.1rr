@@ -68,7 +68,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 //@Disabled  This way it will run on the robot
 public class Drivestick20039 extends OpMode {
     // Declare OpMode members.
-    private ElapsedTime runtime = new ElapsedTime();  //timer
+    private final ElapsedTime runtime = new ElapsedTime();  //timer
 
     /*
     Declare motors to type DcMotorEx

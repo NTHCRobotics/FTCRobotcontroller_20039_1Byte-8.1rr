@@ -62,18 +62,21 @@ public class SampleMecanumDrive extends MecanumDrive {
     public static double VY_WEIGHT = 1;
     public static double OMEGA_WEIGHT = 1;
 
-    private TrajectorySequenceRunner trajectorySequenceRunner;
+    private final TrajectorySequenceRunner trajectorySequenceRunner;
 
     private static final TrajectoryVelocityConstraint VEL_CONSTRAINT = getVelocityConstraint(MAX_VEL, MAX_ANG_VEL, TRACK_WIDTH);
     private static final TrajectoryAccelerationConstraint ACCEL_CONSTRAINT = getAccelerationConstraint(MAX_ACCEL);
 
-    private TrajectoryFollower follower;
+    private final TrajectoryFollower follower;
 
-    private DcMotorEx leftFront, leftRear, rightRear, rightFront;
-    private List<DcMotorEx> motors;
+    private final DcMotorEx leftFront;
+    private final DcMotorEx leftRear;
+    private final DcMotorEx rightRear;
+    private final DcMotorEx rightFront;
+    private final List<DcMotorEx> motors;
 
-    private BNO055IMU imu;
-    private VoltageSensor batteryVoltageSensor;
+    private final BNO055IMU imu;
+    private final VoltageSensor batteryVoltageSensor;
 
     public SampleMecanumDrive(HardwareMap hardwareMap) {
         super(kV, kA, kStatic, TRACK_WIDTH, TRACK_WIDTH, LATERAL_MULTIPLIER);
@@ -145,9 +148,9 @@ public class SampleMecanumDrive extends MecanumDrive {
 
         setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-        if (RUN_USING_ENCODER && MOTOR_VELO_PID != null) {
-            setPIDFCoefficients(DcMotor.RunMode.RUN_USING_ENCODER, MOTOR_VELO_PID);
-        }
+      //  if (RUN_USING_ENCODER && MOTOR_VELO_PID != null) {
+      //      setPIDFCoefficients(DcMotor.RunMode.RUN_USING_ENCODER, MOTOR_VELO_PID);
+       // }
 
         // TODO: reverse any motors using DcMotor.setDirection()
 
@@ -176,7 +179,31 @@ public class SampleMecanumDrive extends MecanumDrive {
                 MAX_ANG_VEL, MAX_ANG_ACCEL
         );
     }
+    public void setTolerance(int tolerance){
 
+        leftFront.setTargetPositionTolerance(tolerance);
+        leftRear.setTargetPositionTolerance(tolerance);
+        rightFront.setTargetPositionTolerance(tolerance);
+        rightRear.setTargetPositionTolerance(tolerance);
+
+}
+
+    public void setTargetPos(int pos1, int pos2, int pos3, int pos4){
+        leftFront.setTargetPosition(pos1);
+        leftRear.setTargetPosition(pos2);
+        rightRear.setTargetPosition(pos3);
+        rightFront.setTargetPosition(pos4);
+    }
+    public boolean areMotorsBusy(){
+        return leftFront.isBusy() || leftRear.isBusy() || rightRear.isBusy() || rightFront.isBusy();
+    }
+
+    public void setDriveVelocity(float vel1, float vel2, float vel3, float vel4){
+        leftFront.setVelocity(vel1);
+        leftRear.setVelocity(vel2);
+        rightRear.setVelocity(vel3);
+        rightFront.setVelocity(vel4);
+    }
     public void turnAsync(double angle) {
         trajectorySequenceRunner.followTrajectorySequenceAsync(
                 trajectorySequenceBuilder(getPoseEstimate())

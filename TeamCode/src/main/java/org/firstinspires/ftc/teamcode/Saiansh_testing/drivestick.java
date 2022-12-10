@@ -68,7 +68,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 //@Disabled  This way it will run on the robot
 public class drivestick extends OpMode {
     // Declare OpMode members.
-    private ElapsedTime runtime = new ElapsedTime();  //timer
+    private final ElapsedTime runtime = new ElapsedTime();  //timer
 
     /*
     Declare motors to type DcMotorEx
@@ -93,14 +93,14 @@ public class drivestick extends OpMode {
     //private Servo gripper;
 
     //Variables
-    private int[] armLevelPosition = {0, 260, 650, 995};
-    private boolean isGrabbing = false;
+    private final int[] armLevelPosition = {0, 260, 650, 995};
+    private final boolean isGrabbing = false;
     private int armLevel;
     private double speedMod;
     private double previousRunTime;
-    private double inputDelayInSeconds = .5;
-    private boolean rumbleLevel = true;
-    private boolean gripperToggle = false;
+    private final double inputDelayInSeconds = .5;
+    private final boolean rumbleLevel = true;
+    private final boolean gripperToggle = false;
     private double rotation = 0;
     //double susanPower;
 
