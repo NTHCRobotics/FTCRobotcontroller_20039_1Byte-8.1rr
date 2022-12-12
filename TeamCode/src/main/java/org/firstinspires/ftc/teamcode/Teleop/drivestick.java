@@ -34,7 +34,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  */
 @TeleOp(name="DriverControl_Pressme;)", group="sai")
 //@Disabled  This way it will run on the robot
-public class drivestick200392 extends OpMode {
+public class drivestick extends OpMode {
     // Declare OpMode members.
     private final ElapsedTime runtime = new ElapsedTime();  //timer
 
@@ -200,6 +200,18 @@ public class drivestick200392 extends OpMode {
         else Viper.setPower(0); {
 
         }
+
+        if (gamepad2.dpad_up) {
+            Viper.setPower(-1);
+            Viper.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.FLOAT);
+        } else if (gamepad2.dpad_down) {
+                    Viper.setPower(1);
+            Viper.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.FLOAT);
+
+        }
+        else  Viper.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE); {
+
+        }
     }
 
 
@@ -224,10 +236,10 @@ public class drivestick200392 extends OpMode {
     private void flipper() {
 
         if (gamepad2.right_bumper) {
-           flip.setPower(-0.4);
+           flip.setPower(-0.7);
         }
         else if (gamepad2.left_bumper) {
-            flip.setPower(0.4);
+            flip.setPower(0.7);
         }
         else flip.setPower(0); {
 

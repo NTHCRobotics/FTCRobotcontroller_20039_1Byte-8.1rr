@@ -40,7 +40,7 @@ import org.openftc.easyopencv.OpenCvInternalCamera;
 import java.util.ArrayList;
 
 @Autonomous
-public class detectdaddyaarishworkingauto extends LinearOpMode
+public class REDrightBLUEleftPARK extends LinearOpMode
 {
     OpenCvCamera camera;
     AprilTagDetectionPipeline aprilTagDetectionPipeline;
@@ -93,20 +93,22 @@ public class detectdaddyaarishworkingauto extends LinearOpMode
         Pose2d startpose = new Pose2d();
         TrajectorySequence Left = drive.trajectorySequenceBuilder(startpose)
 
-                .forward(10)
-
+                .forward(26)
+                .strafeLeft(22)
                 .build();
         TrajectorySequence Middle = drive.trajectorySequenceBuilder(startpose)
 //add trejectorys
-.forward(10)
+                .forward(30)
                 .build();
 
 //add trejectorys
 
 
         TrajectorySequence Right = drive.trajectorySequenceBuilder(startpose)
-                .forward(10)
+                .forward(26)
+                .strafeRight(22)
 //add trejectorys
+
                 .build();
 
 
