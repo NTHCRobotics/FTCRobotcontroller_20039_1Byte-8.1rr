@@ -11,6 +11,8 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
+import com.qualcomm.robotcore.hardware.Gamepad;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 /**
  * This file contains an example of an iterative (Non-Linear) "OpMode".
@@ -72,6 +74,7 @@ public class drivestick extends OpMode {
     private final boolean rumbleLevel = true;
     private final boolean isRumbleLevel = true;
     private double rotation = 0;
+    final double TRIGGER_THRESHOLD  = 0.75;
     //double susanPower;
 
     /*
@@ -153,18 +156,18 @@ public class drivestick extends OpMode {
     public void precisionControl() {
         if (gamepad1.left_trigger > 0) {
             speedMod = .25;
-            gamepad1.rumble(2000);
-            gamepad2.rumble(2000);
+            gamepad1.rumble(1, 1, 200);
+            gamepad2.rumble(1, 1, 200);
         } else if (gamepad1.right_trigger > 0) {
 
             speedMod = 0.5;
-            gamepad1.rumble(1, 1, 2000);
-            gamepad2.rumble(1, 1, 2000);
+            gamepad1.rumble(1, 1, 200);
+            gamepad2.rumble(1, 1, 200);
 
         } else {
             speedMod = 1;
-//            gamepad1.stopRumble();
-//            gamepad2.stopRumble();
+           gamepad1.stopRumble();
+           gamepad2.stopRumble();
             //youtube
         }
     }
