@@ -213,7 +213,7 @@ public class drivestick extends OpMode {
 
         }
         else  Viper.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE); {
-
+            Viper.setPower(.5);
         }
     }
 
