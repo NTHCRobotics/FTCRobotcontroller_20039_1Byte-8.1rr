@@ -193,16 +193,7 @@ public class drivestick extends OpMode {
     }
 
     public void Viperlift() {
-        //isaiah put code here
-        if (gamepad2.dpad_up) {
-            Viper.setPower(-1);
-        }
-        else if (gamepad2.dpad_down) {
-            Viper.setPower(1);
-        }
-        else Viper.setPower(0); {
 
-        }
 
         if (gamepad2.dpad_up) {
             Viper.setPower(-1);
@@ -212,7 +203,7 @@ public class drivestick extends OpMode {
             Viper.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.FLOAT);
 
         }
-        else  Viper.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE); {
+        else    per.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
             Viper.setPower(.5);
         }
     }
@@ -240,12 +231,13 @@ public class drivestick extends OpMode {
 
         if (gamepad2.right_bumper) {
            flip.setPower(-0.7);
+            flip.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.FLOAT);
         }
         else if (gamepad2.left_bumper) {
             flip.setPower(0.7);
-        }
+            flip.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.FLOAT);        }
         else flip.setPower(0); {
-
+            flip.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BREAK);
         }
 
 }
