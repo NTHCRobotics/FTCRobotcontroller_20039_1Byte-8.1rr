@@ -105,7 +105,7 @@ public class drivestick extends OpMode {
         wheelFR.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
         wheelBL.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
         wheelBR.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
-        Viper.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        Viper.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
 
         wheelFL.setDirection(DcMotorSimple.Direction.FORWARD);
         wheelFR.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -194,28 +194,24 @@ public class drivestick extends OpMode {
 
     public void Viperlift() {
 
-
         if (gamepad2.dpad_up) {
             Viper.setPower(-1);
-            Viper.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.FLOAT);
-        } else if (gamepad2.dpad_down) {
-                    Viper.setPower(1);
-            Viper.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.FLOAT);
 
-        }
-        else    per.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
-            Viper.setPower(.5);
+        } else if (gamepad2.dpad_down) {
+            Viper.setPower(1);
+
+        } else Viper.setPower(0);
+        {
+
         }
     }
-
-
     private void Grabber() {
 
-        if (gamepad2.left_bumper) {
-            dildo.setPosition(0.7); //tune this value until
-        } else if (gamepad2.right_bumper) {
-            dildo.setPosition(0);//tune this value until
-        }
+//        if (gamepad2.left_bumper) {
+//            dildo.setPosition(0.7); //tune this value until
+//        } else if (gamepad2.right_bumper) {
+//            dildo.setPosition(0);//tune this value until
+//        }
     }
 
     private void turn() {
@@ -230,14 +226,15 @@ public class drivestick extends OpMode {
     private void flipper() {
 
         if (gamepad2.right_bumper) {
-           flip.setPower(-0.7);
-            flip.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.FLOAT);
+           flip.setPower(-1);
+
         }
         else if (gamepad2.left_bumper) {
-            flip.setPower(0.7);
-            flip.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.FLOAT);        }
+            flip.setPower(1);
+
+        }
         else flip.setPower(0); {
-            flip.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BREAK);
+
         }
 
 }
