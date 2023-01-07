@@ -13,7 +13,22 @@ import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.util.ElapsedTime;
+import com.qualcomm.robotcore.util.ElapsedTime;
+import com.qualcomm.hardware.motors.RevRoboticsCoreHexMotor;
+import com.qualcomm.hardware.rev.Rev2mDistanceSensor;
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.CRServo;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.DigitalChannel;
+import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.util.ElapsedTime;
+import com.qualcomm.robotcore.hardware.Servo;
 
+
+import java.util.Arrays;
 /**
  * This file contains an example of an iterative (Non-Linear) "OpMode".
  * An OpMode is a 'program' that runs in either the autonomous or the teleop period of an FTC match.
@@ -72,9 +87,15 @@ public class drivestick extends OpMode {
 
     private double speedMod;
     private final boolean rumbleLevel = true;
-    private final boolean isRumbleLevel = true;
     private double rotation = 0;
     final double TRIGGER_THRESHOLD  = 0.75;
+    private int[] armLevelPosition = {0, 260, 650, 995};
+    private boolean isGrabbing = false;
+    private int armLevel;
+    private double previousRunTime;
+    private double inputDelayInSeconds = .5;
+
+
     //double susanPower;
 
     /*
@@ -105,7 +126,15 @@ public class drivestick extends OpMode {
         wheelFR.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
         wheelBL.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
         wheelBR.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
+
+
+
+
         Viper.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
+        Viper.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+        Viper.setTargetPosition(260);
+        Viper.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        Viper.setTargetPositionTolerance(50);
 
         wheelFL.setDirection(DcMotorSimple.Direction.FORWARD);
         wheelFR.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -131,8 +160,9 @@ public class drivestick extends OpMode {
      */
     @Override
     public void start() {
-        runtime.reset();
 
+        runtime.reset();
+        previousRunTime = getRuntime();
 
     }
 
@@ -150,6 +180,28 @@ public class drivestick extends OpMode {
         turn();
 
 
+        telemetry.addData("Left Trigger Position", gamepad1.left_trigger);
+
+
+        //Arm Slide Data
+        telemetry.addData("velocity", Viper.getVelocity());
+        telemetry.addData("slidePosition", Viper.getCurrentPosition());
+        telemetry.addData("is at target", !Viper.isBusy());
+        //Arm Slide Data
+        telemetry.addData("Target Slide Position", armLevelPosition[armLevel]);
+        telemetry.addData("Slide Position", Viper.getCurrentPosition());
+        telemetry.addData("Velocity", Viper.getVelocity());
+        telemetry.addData("is at target", !Viper.isBusy());
+        telemetry.addData("Tolerance: ", Viper.getTargetPositionTolerance());
+
+        // Show the elapsed game time and power for each wheel.
+        telemetry.addData("Status", "Run Time: " + runtime.toString());
+        //telemetry.addData("Motors", "wheelFL (%.2f), front right (%.2f), back left (%.2f),  right (%.2f)", wheelFL, wheelFR, wheelBL, wheelBR);
+
+//        telemetry.addData("range", String.format("%.3f cm", sideDistanceSensor.getDistance(DistanceUnit.CM)));
+//        telemetry.addData("range edited", sideDistanceSensor.getDistance(DistanceUnit.CM));
+
+        telemetry.update();
     }
 
 
@@ -194,16 +246,36 @@ public class drivestick extends OpMode {
 
     public void Viperlift() {
 
-        if (gamepad2.dpad_up) {
-            Viper.setPower(-1);
+        if ((gamepad1.dpad_up || gamepad2.dpad_up) && (armLevel < armLevelPosition.length - 1) && (getRuntime() - previousRunTime >= inputDelayInSeconds)) {
 
-        } else if (gamepad2.dpad_down) {
-            Viper.setPower(1);
+            previousRunTime = getRuntime();
+            armLevel++;
+        }
+        if ((gamepad1.dpad_down || gamepad2.dpad_down) && (armLevel > 0) && (getRuntime() - previousRunTime >= inputDelayInSeconds)) {
 
-        } else Viper.setPower(0);
-        {
+            previousRunTime = getRuntime();
+            armLevel--;
+
 
         }
+
+        //sets to driving level
+        if (gamepad1.y || gamepad2.y) {
+            armLevel = 1;
+        }
+
+        Viper.setVelocity(1000);
+        if (armLevel == 1) {
+            Viper.setVelocity(2000);
+            //if statement to set speed only going down
+        }
+
+        if (getRuntime() - previousRunTime >= inputDelayInSeconds + .25 && rumbleLevel) {
+
+        }
+        Viper.setTargetPosition(armLevelPosition[armLevel]);
+        Viper.setTargetPositionTolerance(armLevelPosition[armLevel]);
+
     }
     private void Grabber() {
 
@@ -239,6 +311,13 @@ public class drivestick extends OpMode {
 
 }
 
+    public static void wait(int ms) {
+        try {
+            Thread.sleep(ms); //core java delay command
+        } catch (InterruptedException ex) {
+            Thread.currentThread().interrupt(); //this exception is useful to remove the glitches and errors of the thread.sleep()
+        }
+    }
 
 
         /*
