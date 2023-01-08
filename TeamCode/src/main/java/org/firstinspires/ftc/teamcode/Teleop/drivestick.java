@@ -89,7 +89,7 @@ public class drivestick extends OpMode {
     private final boolean rumbleLevel = true;
     private double rotation = 0;
     final double TRIGGER_THRESHOLD  = 0.75;
-    private int[] armLevelPosition = {0, 260, 650, 995};
+    private int[] armLevelPosition = {0, 1200, 2000, 3000};
     private boolean isGrabbing = false;
     private int armLevel;
     private double previousRunTime;
@@ -264,7 +264,7 @@ public class drivestick extends OpMode {
             armLevel = 1;
         }
 
-        Viper.setVelocity(1000);
+        Viper.setVelocity(2000);
         if (armLevel == 1) {
             Viper.setVelocity(2000);
             //if statement to set speed only going down
@@ -289,7 +289,7 @@ public class drivestick extends OpMode {
     private void turn() {
 
         if (gamepad2.b) {
-            turn.setPosition(0.7); //tune this value until
+            turn.setPosition(0.4); //tune this value until
         } else if (gamepad2.a) {
             turn.setPosition(0);//tune this value until
         }
@@ -298,14 +298,14 @@ public class drivestick extends OpMode {
     private void flipper() {
 
         if (gamepad2.right_bumper) {
-           flip.setPower(-1);
+           flip.setPower(-0.5);
 
         }
         else if (gamepad2.left_bumper) {
-            flip.setPower(1);
+            flip.setPower(0.5);
 
         }
-        else flip.setPower(0); {
+        else flip.setPower(-0.1); {
 
         }
 
