@@ -1,6 +1,10 @@
 
 package org.firstinspires.ftc.teamcode.Teleop;
 
+import com.acmerobotics.dashboard.FtcDashboard;
+import com.acmerobotics.dashboard.config.Config;
+import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
+import com.arcrobotics.ftclib.controller.PIDController;
 import com.qualcomm.hardware.rev.Rev2mDistanceSensor;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -50,6 +54,7 @@ import java.util.Arrays;
     group = allows you to group OpModes
  */
 @TeleOp(name="DriverControl_Pressme;)", group="sai")
+@Config
 //@Disabled  This way it will run on the robot
 public class drivestick extends OpMode {
     // Declare OpMode members.
@@ -73,7 +78,7 @@ public class drivestick extends OpMode {
     private DcMotorEx wheelBL;
     private DcMotorEx wheelBR;
     private DcMotorEx Viper;
-    private DcMotorEx flip;
+
     //private DcMotorEx Insertnamehere
     //private DcMotorEx Insertnamehere
 
@@ -82,6 +87,22 @@ public class drivestick extends OpMode {
     private CRServo camera;
     private Servo dildo;
     private Servo turn;
+
+// pidf controller---------------------------------------------------
+private PIDController controller;
+
+    public static double p = 0, i = 0, d = 0;
+    public static double f = 0;
+
+    public static int target = 0;
+
+    private final double tick_in_degree = 700/ 180.0;
+
+    private DcMotorEx flip;
+
+
+    //-------------------------------------------------------
+
 
 
 
@@ -103,6 +124,14 @@ public class drivestick extends OpMode {
      */
     @Override
     public void init() {
+//pidf controller------------------------------------------------------------------------------------------------
+        controller = new PIDController(p, i, d);
+       telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
+        flip = hardwareMap.get(DcMotorEx.class, "flip");
+
+      //--------------------------------------------------------------------------------------------------------------
+
+
         telemetry.addData("Status", "Initialization Started");
 
 
@@ -118,7 +147,7 @@ public class drivestick extends OpMode {
         Viper = hardwareMap.get(DcMotorEx.class, "viper");
         dildo = hardwareMap.get(Servo.class, "stinger");
         turn = hardwareMap.get(Servo.class, "turn");
-        flip = hardwareMap.get(DcMotorEx.class, "flip");
+
 
         //Motor Encoders
         //Wheels
@@ -130,11 +159,7 @@ public class drivestick extends OpMode {
 
 
 
-        Viper.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
-        Viper.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
-        Viper.setTargetPosition(260);
-        Viper.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        Viper.setTargetPositionTolerance(50);
+
 
         wheelFL.setDirection(DcMotorSimple.Direction.FORWARD);
         wheelFR.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -144,6 +169,7 @@ public class drivestick extends OpMode {
 
         // Tell the driver that initialization is complete.
         telemetry.addData("Status", "Initialization Complete");
+
 
 
     }
@@ -180,6 +206,12 @@ public class drivestick extends OpMode {
         Grabber();
         flipper();
         turn();
+        //pidf controller---------------------------------------------------------------------------------------
+controller.setPID(p,i,d);
+int armPos = flip.getCurrentPosition();
+double pid = controller.calculate(armPos, target);
+double ff = Math.cos(Math.toRadians(target/ tick_in_degree)) * f;
+double power = pid + ff;
 
 
         telemetry.addData("Left Trigger Position", gamepad1.left_trigger);
@@ -301,16 +333,13 @@ public class drivestick extends OpMode {
 
         if (gamepad2.right_bumper) {
             flip.setPower(-0.7);
-
         }
         else if (gamepad2.left_bumper) {
             flip.setPower(0.7);
-
         }
-        else flip.setPower(-0.23); {
-
+     else {
+            flip.setPower(-0.23);
         }
-
 }
 
     public static void wait(int ms) {
