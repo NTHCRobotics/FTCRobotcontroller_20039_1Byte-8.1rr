@@ -90,6 +90,7 @@ public class drivestick extends OpMode {
     private double rotation = 0;
     final double TRIGGER_THRESHOLD  = 0.75;
     private int[] armLevelPosition = {0, 1200, 2000, 3000};
+    private int[] flipperposition = {0, 100};
     private boolean isGrabbing = false;
     private int armLevel;
     private double previousRunTime;
@@ -135,6 +136,12 @@ public class drivestick extends OpMode {
         Viper.setTargetPosition(260);
         Viper.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         Viper.setTargetPositionTolerance(50);
+
+        flip.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
+        flip.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+        flip.setTargetPosition(260);
+        flip.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        flip.setTargetPositionTolerance(50);
 
         wheelFL.setDirection(DcMotorSimple.Direction.FORWARD);
         wheelFR.setDirection(DcMotorSimple.Direction.REVERSE);
