@@ -90,7 +90,7 @@ public class drivestick extends OpMode {
     private double rotation = 0;
     final double TRIGGER_THRESHOLD  = 0.75;
     private int[] armLevelPosition = {0, 1200, 2000, 3000};
-    private int[] flipperposition = {0, 100};
+    private int[] flipperposition = {0, -50};
     private boolean isGrabbing = false;
     private int armLevel;
     private double previousRunTime;
@@ -141,7 +141,7 @@ public class drivestick extends OpMode {
         flip.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
         flip.setTargetPosition(260);
         flip.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        flip.setTargetPositionTolerance(50);
+        flip.setTargetPositionTolerance(5);
 
         wheelFL.setDirection(DcMotorSimple.Direction.FORWARD);
         wheelFR.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -161,7 +161,8 @@ public class drivestick extends OpMode {
     @Override
     public void init_loop() {
         turn.setPosition(0.85);
-        flip.setPower(-0.23);
+
+        dildo.setPosition(0.4);
     }
 
     /*
@@ -306,19 +307,19 @@ public class drivestick extends OpMode {
 
     private void flipper() {
 
-        if (gamepad2.right_bumper) {
-            flip.setPower(-0.7);
+
+        if (gamepad1.left_bumper || gamepad2.left_bumper) {
+            flip.setPower(1);
+            flip.setTargetPosition(flipperposition[0]);
+        }
+        if (gamepad1.right_bumper || gamepad2.right_bumper) {
+           flip.setPower(1);
+            flip.setTargetPosition(flipperposition[1]);
 
         }
-        else if (gamepad2.left_bumper) {
-            flip.setPower(0.7);
-
-        }
-        else flip.setPower(-0.23); {
 
         }
 
-}
 
     public static void wait(int ms) {
         try {
