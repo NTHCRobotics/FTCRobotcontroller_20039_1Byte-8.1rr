@@ -153,6 +153,8 @@ public class drivestick extends OpMode {
      */
     @Override
     public void init_loop() {
+        turn.setPosition(0.85);
+        flip.setPower(-0.23);
     }
 
     /*
@@ -279,33 +281,33 @@ public class drivestick extends OpMode {
     }
     private void Grabber() {
 
-//        if (gamepad2.left_bumper) {
-//            dildo.setPosition(0.7); //tune this value until
-//        } else if (gamepad2.right_bumper) {
-//            dildo.setPosition(0);//tune this value until
-//        }
+       if (gamepad2.left_trigger > 0) {
+            dildo.setPosition(0.4); //tune this value until
+        } else if (gamepad2.right_trigger > 0) {
+            dildo.setPosition(0.7);//tune this value until
+        }
     }
 
     private void turn() {
 
         if (gamepad2.b) {
-            turn.setPosition(0.4); //tune this value until
+            turn.setPosition(0.85); //tune this value until
         } else if (gamepad2.a) {
-            turn.setPosition(0);//tune this value until
+            turn.setPosition(0.19);//tune this value until
         }
     }
 
     private void flipper() {
 
         if (gamepad2.right_bumper) {
-           flip.setPower(-0.5);
+            flip.setPower(-0.7);
 
         }
         else if (gamepad2.left_bumper) {
-            flip.setPower(0.5);
+            flip.setPower(0.7);
 
         }
-        else flip.setPower(-0.1); {
+        else flip.setPower(-0.23); {
 
         }
 
