@@ -41,7 +41,7 @@ import java.util.List;
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-@Autonomous(name = "Concept: TensorFlow Object Detection Webcam", group = "Concept")
+@Autonomous
 //@Disabled
 public class TensorflowODWebcamDefault extends LinearOpMode {
 
